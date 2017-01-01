@@ -28,7 +28,8 @@ int main(void) {
     loop_until_bit_is_clear(ADCSRA, ADSC);          /* wait until done */
     adcValue = ADC;                                     /* read ADC in */
 
-    writeInt(adcValue);
+    //writeInt(convertAdcReading(adcValue));
+    writeInt(adcValue * (5000 / 1024));
     _delay_ms(1000);
   }                                                  /* End event loop */
   return 0;                            /* This line is never reached */
@@ -40,6 +41,11 @@ void initDDRD() {
 
 void initDDRB() {
   DDRB |= 0b00000011;
+}
+
+int convertAdcReading(int adc){
+  int millivolts = adc * (5000 / 1024);
+  return (millivolts - 500) / 10;
 }
 
 void writeInt(int i) {
