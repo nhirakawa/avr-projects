@@ -1,4 +1,4 @@
-#include "blink.h"
+#include "blink-led-array.h"
 
 int main(void)
 {
