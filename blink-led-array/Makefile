@@ -4,7 +4,7 @@
 ##########    Check these every time you start a new project    ##########
 ##########------------------------------------------------------##########
 
-MCU   = atmega328
+MCU   = attiny13
 F_CPU = 1000000UL  
 BAUD  = 9600L
 ## Also try BAUD = 19200 or 38400 if you're feeling lucky.
@@ -58,7 +58,7 @@ HEADERS=$(SOURCES:.c=.h)
 
 ## Compilation options, type man avr-gcc if you're curious.
 CPPFLAGS = -DF_CPU=$(F_CPU) -DBAUD=$(BAUD) -I. -I$(LIBDIR)
-CFLAGS = -Os -g -std=gnu99 -Wall
+CFLAGS = -Os -g -std=gnu99 -Wall -Werror
 ## Use short (8-bit) data types 
 CFLAGS += -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums 
 ## Splits up object files per function
@@ -113,12 +113,6 @@ size:  $(TARGET).elf
 	$(AVRSIZE) -C --mcu=$(MCU) $(TARGET).elf
 
 clean:
-	rm -f $(TARGET).elf $(TARGET).hex $(TARGET).obj \
-	$(TARGET).o $(TARGET).d $(TARGET).eep $(TARGET).lst \
-	$(TARGET).lss $(TARGET).sym $(TARGET).map $(TARGET)~ \
-	$(TARGET).eeprom
-
-squeaky_clean:
 	rm -f *.elf *.hex *.obj *.o *.d *.eep *.lst *.lss *.sym *.map *~ *.eeprom
 
 ##########------------------------------------------------------##########
