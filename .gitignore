@@ -596,3 +596,5 @@ __pycache__/
 *.xsd.cs
 
 # End of https://www.gitignore.io/api/c,osx,git,vim,c++,linux,clion,emacs,macos,windows,qtcreator,atmelstudio,visualstudio,visualstudiocode
+
+**/Makefile
