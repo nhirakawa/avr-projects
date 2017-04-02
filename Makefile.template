@@ -4,16 +4,10 @@
 ##########    Check these every time you start a new project    ##########
 ##########------------------------------------------------------##########
 
-GCC_MCU =
-AVR_MCU = 
+MCU   = attiny13
 F_CPU = 1000000UL  
-BAUD = 9600L
+BAUD  = 9600L
 ## Also try BAUD = 19200 or 38400 if you're feeling lucky.
-
-## A directory for common include files and the simple USART library.
-## If you move either the current folder or the Library folder, you'll 
-##  need to change this path to match.
-LIBDIR = ../utils
 
 ##########------------------------------------------------------##########
 ##########                 Programmer Defaults                  ##########
@@ -58,7 +52,7 @@ OBJECTS=$(SOURCES:.c=.o)
 HEADERS=$(SOURCES:.c=.h)
 
 ## Compilation options, type man avr-gcc if you're curious.
-CPPFLAGS = -DF_CPU=$(F_CPU) -DBAUD=$(BAUD) -I. -I$(LIBDIR)
+CPPFLAGS = -DF_CPU=$(F_CPU) -DBAUD=$(BAUD) -I.
 CFLAGS = -Os -g -std=gnu99 -Wall -Werror
 ## Use short (8-bit) data types 
 CFLAGS += -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums 
@@ -71,7 +65,7 @@ LDFLAGS += -Wl,--gc-sections
 ## LDFLAGS += -Wl,--relax
 ## LDFLAGS += -Wl,-u,vfprintf -lprintf_flt -lm  ## for floating-point printf
 ## LDFLAGS += -Wl,-u,vfprintf -lprintf_min      ## for smaller printf
-TARGET_ARCH = -mmcu=$(GCC_MCU)
+TARGET_ARCH = -mmcu=$(MCU)
 
 ## Explicit pattern rules:
 ##  To make .o files from .c files 
@@ -98,7 +92,7 @@ all: $(TARGET).hex
 debug:
 	@echo
 	@echo "Source files:"   $(SOURCES)
-	@echo "GCC_MCU, F_CPU, BAUD:"  $(MCU), $(F_CPU), $(BAUD)
+	@echo "MCU, F_CPU, BAUD:"  $(MCU), $(F_CPU), $(BAUD)
 	@echo	
 
 # Optionally create listing file from .elf
@@ -111,7 +105,7 @@ disasm: disassemble
 
 # Optionally show how big the resulting program is 
 size:  $(TARGET).elf
-	$(AVRSIZE) -C --mcu=$(GCC_MCU) $(TARGET).elf
+	$(AVRSIZE) -C --mcu=$(MCU) $(TARGET).elf
 
 clean:
 	rm -f *.elf *.hex *.obj *.o *.d *.eep *.lst *.lss *.sym *.map *~ *.eeprom
@@ -122,16 +116,16 @@ clean:
 ##########------------------------------------------------------##########
 
 flash: $(TARGET).hex 
-	$(AVRDUDE) -c $(PROGRAMMER_TYPE) -p $(AVR_MCU) $(PROGRAMMER_ARGS) -U flash:w:$<
+	$(AVRDUDE) -c $(PROGRAMMER_TYPE) -p $(MCU) $(PROGRAMMER_ARGS) -U flash:w:$<
 
 ## An alias
 program: flash
 
 flash_eeprom: $(TARGET).eeprom
-	$(AVRDUDE) -c $(PROGRAMMER_TYPE) -p $(AVR_MCU) $(PROGRAMMER_ARGS) -U eeprom:w:$<
+	$(AVRDUDE) -c $(PROGRAMMER_TYPE) -p $(MCU) $(PROGRAMMER_ARGS) -U eeprom:w:$<
 
 avrdude_terminal:
-	$(AVRDUDE) -c $(PROGRAMMER_TYPE) -p $(AVR_MCU) $(PROGRAMMER_ARGS) -nt
+	$(AVRDUDE) -c $(PROGRAMMER_TYPE) -p $(MCU) $(PROGRAMMER_ARGS) -nt
 
 ## If you've got multiple programmers that you use, 
 ## you can define them here so that it's easy to switch.
@@ -166,10 +160,10 @@ EFUSE = 0x00
 FUSE_STRING = -U lfuse:w:$(LFUSE):m -U hfuse:w:$(HFUSE):m -U efuse:w:$(EFUSE):m 
 
 fuses: 
-	$(AVRDUDE) -c $(PROGRAMMER_TYPE) -p $(AVR_MCU) \
+	$(AVRDUDE) -c $(PROGRAMMER_TYPE) -p $(MCU) \
 	           $(PROGRAMMER_ARGS) $(FUSE_STRING)
 show_fuses:
-	$(AVRDUDE) -c $(PROGRAMMER_TYPE) -p $(AVR_MCU) $(PROGRAMMER_ARGS) -nv	
+	$(AVRDUDE) -c $(PROGRAMMER_TYPE) -p $(MCU) $(PROGRAMMER_ARGS) -nv	
 
 ## Called with no extra definitions, sets to defaults
 set_default_fuses:  FUSE_STRING = -U lfuse:w:$(LFUSE):m -U hfuse:w:$(HFUSE):m -U efuse:w:$(EFUSE):m 
