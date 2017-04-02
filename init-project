@@ -11,6 +11,21 @@ fi
 FOLDER=$1
 
 mkdir $FOLDER
+
 cp .Makefile.template $FOLDER/Makefile
+
 touch $FOLDER/$FOLDER.c
+echo "
+#include \"$FOLDER.h\"
+
+int main()
+{
+
+}
+" > $FOLDER/$FOLDER.c
+
 touch $FOLDER/$FOLDER.h
+echo "
+
+int main(void);
+" > $FOLDER/$FOLDER.h
