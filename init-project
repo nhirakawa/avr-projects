@@ -29,3 +29,6 @@ echo "
 
 int main(void);
 " > $FOLDER/$FOLDER.h
+
+touch $FOLDER/README.md
+echo "# $FOLDER\n" > $FOLDER/README.md
