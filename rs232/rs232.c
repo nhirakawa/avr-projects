@@ -45,7 +45,7 @@ void io_init(unsigned int ubrr)
 
 void usart_transmit(unsigned char data)
 {
-  //while(!(UCSR0A & (1 << UDRE0)))
+  while(!(UCSR0A & (1 << UDRE0)));
 
   UDR0 = data;
 
