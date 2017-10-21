@@ -17,7 +17,7 @@
 #define SH_CP_low()  SH_CP_PORT&=~_BV(SH_CP_PIN)
 #define SH_CP_high() SH_CP_PORT|=_BV(SH_CP_PIN)
 
-#define DELAY 50
+#define DELAY 100
 #define ITERATIONS 5
 
 int main(void);
