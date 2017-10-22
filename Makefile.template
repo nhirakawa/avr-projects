@@ -53,7 +53,7 @@ HEADERS=$(SOURCES:.c=.h)
 
 ## Compilation options, type man avr-gcc if you're curious.
 CPPFLAGS = -DF_CPU=$(F_CPU) -DBAUD=$(BAUD) -I.
-CFLAGS = -Os -g -std=gnu99 -Wall -Werror
+CFLAGS = -Os -g -std=gnu99 -Wall -Wextra -Werror
 ## Use short (8-bit) data types 
 CFLAGS += -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums 
 ## Splits up object files per function
