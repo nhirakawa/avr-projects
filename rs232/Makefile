@@ -151,9 +151,8 @@ flash_109: flash
 ##########       Fuse settings and suitable defaults            ##########
 ##########------------------------------------------------------##########
 
-## Mega 48, 88, 168, 328 default values
-LFUSE = 0x62
-HFUSE = 0xdf
+LFUSE = 0xff
+HFUSE = 0xd9
 EFUSE = 0x00
 
 ## Generic 
